@@ -7,6 +7,7 @@ public class Block
 {
 	protected int x,y,width,height;
 	protected Color color;
+	public boolean isGone;
 
 	public Block(int x, int y, int w, int h, Color c)
 	{
@@ -15,6 +16,7 @@ public class Block
 		this.y = y;
 		this.width = w;
 		this.height = h;
+		isGone = false;
 	}
 
 	public boolean getIsGone()

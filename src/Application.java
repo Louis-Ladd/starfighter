@@ -14,13 +14,14 @@ public class Application extends JFrame {
     public static final int SCREENHEIGHT = 600;
     public static final int SCREENWIDTH = 1200;
 
+    public static Random rand;
     private Image dbImage;
     private Graphics dbg;
 
     private SwingWorker gameLooper;
     private boolean stop;
     
-    private int seconds;
+    private int frameCount;
 
     private ArrayList<Block> sceneObjects = new ArrayList<Block>();
     
@@ -30,12 +31,16 @@ public class Application extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle("StarFighter");
-        
-        //Object init
-
-
-        seconds = 0;
+        setBackground(Color.BLACK);
+        rand = new Random();
+        frameCount = 0;
         stop = false;
+
+        for (int i = 0; i < 500; i++)
+        {
+            sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
+        }
+
         
         gameLooper = new SwingWorker() {
             @Override
@@ -55,20 +60,43 @@ public class Application extends JFrame {
     @Override
     public void paint(Graphics g) {
         //Double Buffered image
+        long startFrame = System.nanoTime();
+
         dbImage = createImage(getWidth(), getHeight());
         dbg = dbImage.getGraphics();
+
+        for (int i = 0; i < sceneObjects.size(); i++)
+        {
+            Block sceneObject = sceneObjects.get(i);
+            sceneObject.logic(sceneObjects);
+            if (sceneObject.isGone)
+            {
+                sceneObjects.remove(i);
+                i --;
+                continue;
+            }
+        }
 
         paintComponent(dbg);
         
         g.drawImage(dbImage, 0, 0, this);
+
+        long endFrame = System.nanoTime();
+        System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
+        
     }
 
     public void paintComponent(Graphics g)
     {
+        for (Block sceneObject : sceneObjects)
+        {
+            sceneObject.draw(g);
+        }
     }
+
     
     public void update() 
     {
-        seconds++;
+        frameCount++;
     }
 }
