@@ -14,10 +14,11 @@ public class Star extends Block
 	public void logic(ArrayList<Block> sceneObjects)
 	{
 
-		x -= 3;
-		if (x < 0)
+		y -= 1;
+		if (y < 0)
 		{
-			sceneObjects.add(new Star(Application.SCREENWIDTH + width, Application.rand.nextInt(Application.SCREENHEIGHT), width, height, color));
+			sceneObjects.add(new Star(Application.rand.nextInt(Application.SCREENWIDTH), Application.SCREENHEIGHT, width, height, color));
+
 			isGone = true;
 		}
 	}

@@ -40,6 +40,7 @@ public class Application extends JFrame {
         {
             sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
         }
+        sceneObjects.add(new Ship(200,200));
 
         
         gameLooper = new SwingWorker() {
