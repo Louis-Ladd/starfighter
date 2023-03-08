@@ -13,6 +13,19 @@ public class Ship extends Block
 	public void logic(ArrayList<Block> sceneObjects)
 	{
 
+		if (Application.keys[0] && x - 35 - 15 > 0)
+		{
+			x -= 15;
+		}
+		if (Application.keys[1] && x + 50 + 15 < Application.SCREENWIDTH)
+		{
+			x += 15;
+		}
+		if (Application.keys[2])
+		{
+			sceneObjects.add(new Bullet(x, y, Color.PINK));
+		}
+
 	}
 
 	@Override
@@ -25,7 +38,7 @@ public class Ship extends Block
 		g.setColor(Color.RED);
 		g.fillRect(x-35,y+15, 25,50);//Wings
 		g.fillRect(x+15,y+15, 25,50);
-		g.fillRect(x-5,y-100, 10,50);//Canon thing
+		g.fillRect(x-5,y-75, 10,50);//Canon thing
 		g.fillRect(x-10,y-25, 20,20);//Cockpit
 	}
 }

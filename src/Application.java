@@ -8,10 +8,12 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.PointerInfo;
 import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
-public class Application extends JFrame {
-    public static final int SCREENHEIGHT = 600;
+public class Application extends JFrame{
+    public static final int SCREENHEIGHT = 1000;
     public static final int SCREENWIDTH = 1200;
 
     public static Random rand;
@@ -24,9 +26,45 @@ public class Application extends JFrame {
     private int frameCount;
 
     private ArrayList<Block> sceneObjects = new ArrayList<Block>();
+
+    public static boolean[] keys = {false, false, false};
     
     public Application() 
     {
+        addKeyListener(new KeyAdapter() {
+          public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (e.getKeyCode())
+            {
+                case KeyEvent.VK_UP:
+                    keys[2] = true;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    keys[0] = true;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    keys[1] = true;
+                    break;
+            }
+          }
+            public void keyReleased(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+            switch (e.getKeyCode())
+            {
+                case KeyEvent.VK_UP:
+                    keys[2] = false;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    keys[0] = false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    keys[1] = false;
+                    break;
+            }
+          }
+        });
+
+
         setSize(SCREENWIDTH, SCREENHEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -36,12 +74,13 @@ public class Application extends JFrame {
         frameCount = 0;
         stop = false;
 
+        
+        sceneObjects.add(new Ship(200,SCREENHEIGHT - 150));
         for (int i = 0; i < 500; i++)
         {
             sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
         }
-        sceneObjects.add(new Ship(200,200));
-
+        
         
         gameLooper = new SwingWorker() {
             @Override
@@ -69,6 +108,7 @@ public class Application extends JFrame {
         for (int i = 0; i < sceneObjects.size(); i++)
         {
             Block sceneObject = sceneObjects.get(i);
+
             sceneObject.logic(sceneObjects);
             if (sceneObject.isGone)
             {
@@ -83,15 +123,20 @@ public class Application extends JFrame {
         g.drawImage(dbImage, 0, 0, this);
 
         long endFrame = System.nanoTime();
-        System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
+        for (boolean b : keys)
+        {
+            System.out.print(b);
+        }
+        System.out.println();
+        //System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
         
     }
 
     public void paintComponent(Graphics g)
     {
-        for (Block sceneObject : sceneObjects)
+        for (int i = sceneObjects.size()-1; i >= 0; i--) //Draw from top of list to keep "z distance" constant.
         {
-            sceneObject.draw(g);
+            sceneObjects.get(i).draw(g);
         }
     }
 
@@ -99,5 +144,10 @@ public class Application extends JFrame {
     public void update() 
     {
         frameCount++;
+    }
+
+    public void keyTyped(KeyEvent e)
+    {
+        System.out.print(e);
     }
 }

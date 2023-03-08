@@ -77,4 +77,9 @@ public class Block
 	{
 		return (x < obj2.getX() + obj2.getWidth() && x + width > obj2.getX() && y < obj2.getY() + obj2.getHeight() && y + height > obj2.getY());
 	}
+	
+	protected void removeThis()
+	{
+		isGone = true;
+	}
 }
