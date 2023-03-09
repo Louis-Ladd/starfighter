@@ -24,6 +24,7 @@ public class Application extends JFrame{
     private boolean stop;
     
     private int frameCount;
+    private int alienCount;
 
     private ArrayList<Block> sceneObjects = new ArrayList<Block>();
 
@@ -74,16 +75,22 @@ public class Application extends JFrame{
         frameCount = 0;
         stop = false;
 
+        sceneObjects.add(new Ship(100,SCREENHEIGHT - 100));
+
+        //Aliens
         int alienCol = 10;
+        int alienRow = 2;
+        alienCount = alienCol * alienRow;
         int ALIEN_SPACING_X = (SCREENWIDTH - (15 * alienCol)) / (alienCol + 1);
 
         for (int col = 1; col <= alienCol; col++)
         {
-            for (int row = 1; row <= 2; row++)
+            for (int row = 1; row <= alienRow; row++)
             {
-                sceneObjects.add(new Alien(ALIEN_SPACING_X*col, 150*row));
+                sceneObjects.add(new Alien((ALIEN_SPACING_X*col)+row*20, 150*row));
             }
         }
+        //Stars
         for (int i = 0; i < 500; i++)
         {
             sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
@@ -110,6 +117,8 @@ public class Application extends JFrame{
         //Double Buffered image
         long startFrame = System.nanoTime();
 
+        alienCount = 0;
+
         dbImage = createImage(getWidth(), getHeight());
         dbg = dbImage.getGraphics();
 
@@ -117,7 +126,13 @@ public class Application extends JFrame{
         {
             Block sceneObject = sceneObjects.get(i);
 
+            if(sceneObject instanceof Alien)
+            {
+                alienCount++;
+            }
+
             sceneObject.logic(sceneObjects);
+
             if (sceneObject.isGone)
             {
                 sceneObjects.remove(i);
@@ -131,11 +146,7 @@ public class Application extends JFrame{
         g.drawImage(dbImage, 0, 0, this);
 
         long endFrame = System.nanoTime();
-        for (boolean b : keys)
-        {
-            System.out.print(b);
-        }
-        System.out.println();
+        //System.out.println(alienCount);
         //System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
         
     }

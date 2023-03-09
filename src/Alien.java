@@ -9,4 +9,8 @@ public class Alien extends Block
 	{
 		super(x,y,30,30,Color.BLUE);
 	}
+	@Override
+	public void logic(ArrayList<Block> sceneObjects)
+	{
+	}
 }
