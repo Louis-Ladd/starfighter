@@ -74,8 +74,16 @@ public class Application extends JFrame{
         frameCount = 0;
         stop = false;
 
-        
-        sceneObjects.add(new Ship(200,SCREENHEIGHT - 150));
+        int alienCol = 10;
+        int ALIEN_SPACING_X = (SCREENWIDTH - (15 * alienCol)) / (alienCol + 1);
+
+        for (int col = 1; col <= alienCol; col++)
+        {
+            for (int row = 1; row <= 2; row++)
+            {
+                sceneObjects.add(new Alien(ALIEN_SPACING_X*col, 150*row));
+            }
+        }
         for (int i = 0; i < 500; i++)
         {
             sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));

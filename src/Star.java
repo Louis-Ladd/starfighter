@@ -17,10 +17,15 @@ public class Star extends Block
 		y -= 1;
 		if (y < 0)
 		{
-			sceneObjects.add(new Star(Application.rand.nextInt(Application.SCREENWIDTH), Application.SCREENHEIGHT, width, height, color));
-
-			isGone = true;
+			removeThis(sceneObjects);
 		}
+	}
+
+	@Override
+	public void removeThis(ArrayList<Block> sceneObjects)
+	{
+		sceneObjects.add(new Star(Application.rand.nextInt(Application.SCREENWIDTH), Application.SCREENHEIGHT, width, height, color));
+		isGone = true;
 	}
 
 	@Override

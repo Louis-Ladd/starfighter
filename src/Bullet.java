@@ -24,6 +24,18 @@ public class Bullet extends Block
 		{
 			removeThis();
 		}
+		for (int i = sceneObjects.size()-1; i >= 0; i--)
+		{
+			Block obj = sceneObjects.get(i);
+
+			if (this.isOverlapping(obj) && 
+				!obj.equals(this) &&
+				obj instanceof Star) // Alien
+			{
+				obj.removeThis(sceneObjects);
+			}
+		}
 		y -= 10;
+
 	}
 }

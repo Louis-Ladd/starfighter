@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 public class Ship extends Block
 {
+	int xVel;
 	public Ship(int x, int y)
 	{
 		super(x,y,5,5,Color.BLACK);
@@ -15,16 +16,21 @@ public class Ship extends Block
 
 		if (Application.keys[0] && x - 35 - 15 > 0)
 		{
-			x -= 15;
+			xVel -= 15;
 		}
 		if (Application.keys[1] && x + 50 + 15 < Application.SCREENWIDTH)
 		{
-			x += 15;
+			xVel += 15;
 		}
 		if (Application.keys[2])
 		{
 			sceneObjects.add(new Bullet(x, y, Color.PINK));
 		}
+
+		xVel = (int)clamp(xVel, -10, 10);
+		x += xVel;
+		if (xVel != 0)
+			xVel += xVel > 0 ? -1 : 1;
 
 	}
 
