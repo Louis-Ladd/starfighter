@@ -7,15 +7,29 @@ public class Block
 {
 	protected int x,y,width,height;
 	protected Color color;
+	private String tag;
 	public boolean isGone;
 
-	public Block(int x, int y, int w, int h, Color c)
+	public Block(int xPos, int yPos, int w, int h, Color c)
 	{
-		this.color = c;
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
+		color = c;
+		x = xPos;
+		y = yPos;
+		width = w;
+		height = h;
+		tag = "";
+		isGone = false;
+		
+	}
+
+	public Block(int xPos, int yPos, int w, int h, Color c, String t)
+	{
+		color = c;
+		x = xPos;
+		y = yPos;
+		width = w;
+		height = h;
+		tag = t;
 		isGone = false;
 	}
 
@@ -38,6 +52,10 @@ public class Block
 	public int getHeight()
 	{
 		return height;
+	}
+	public String getTag()
+	{
+		return tag;
 	}
 
 	public void invertXVel()
@@ -88,6 +106,10 @@ public class Block
 
 	protected void removeThis(ArrayList<Block> sceneObjects)
 	{
+		for (int j = 0; j < 25; j++)
+		{
+			sceneObjects.add(new Particle(x,y,10,10));
+		}
 		isGone = true;
 	}
 }

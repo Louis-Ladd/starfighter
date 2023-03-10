@@ -75,7 +75,8 @@ public class Application extends JFrame{
         frameCount = 0;
         stop = false;
 
-        sceneObjects.add(new Ship(100,SCREENHEIGHT - 100));
+        sceneObjects.add(new Ship(100,SCREENHEIGHT - 150));
+        alienCount = 0;
 
         //Aliens
         int alienCol = 10;
@@ -90,6 +91,7 @@ public class Application extends JFrame{
                 sceneObjects.add(new Alien((ALIEN_SPACING_X*col)+row*20, 150*row));
             }
         }
+
         //Stars
         for (int i = 0; i < 500; i++)
         {
@@ -140,14 +142,17 @@ public class Application extends JFrame{
                 continue;
             }
         }
+        g.setColor(Color.PINK);
+        
+
 
         paintComponent(dbg);
         
         g.drawImage(dbImage, 0, 0, this);
 
+        System.out.println("Objects: " + sceneObjects.size());
         long endFrame = System.nanoTime();
-        //System.out.println(alienCount);
-        //System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
+        System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
         
     }
 

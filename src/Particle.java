@@ -9,17 +9,23 @@ public class Particle extends Block
 
 	public Particle(int x, int y, int w, int h)
 	{
-		super(x,y,w,h, Color.YELLOW);
-		Random rnd = new Random();
-		xVel = rnd.nextInt(-10,10);
-		yVel = rnd.nextInt(-10,10);
+		super(x,y,w,h, Color.YELLOW, "particle");
+		xVel = Application.rand.nextInt(-10,10);
+		yVel = Application.rand.nextInt(-10,10);
 
 		if (xVel == 0)
 			xVel ++;
 		if (yVel == 0)
 			yVel ++;
 
-		System.out.println("" + xVel + "  " + yVel);
+		//System.out.println("" + xVel + "  " + yVel);
+	}
+	public Particle(int x, int y, int w, int h, int xV, int yV)
+	{
+		super(x,y,w,h, Color.YELLOW, "particle");
+		xVel = xV;
+		yVel = yV;
+		//System.out.println("" + xVel + "  " + yVel);
 	}
 
 	@Override

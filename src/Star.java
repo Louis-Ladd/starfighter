@@ -7,7 +7,7 @@ public class Star extends Block
 {
 	public Star(int x, int y, int w, int h, Color c)
 	{
-		super(x,y,w,h,c);
+		super(x,y,w,h,c,"star");
 	}
 
 	@Override
@@ -17,7 +17,8 @@ public class Star extends Block
 		y -= 1;
 		if (y < 0)
 		{
-			removeThis(sceneObjects);
+			x = Application.rand.nextInt(Application.SCREENWIDTH);
+			y = Application.rand.nextInt(Application.SCREENHEIGHT) + Application.SCREENHEIGHT;
 		}
 	}
 
