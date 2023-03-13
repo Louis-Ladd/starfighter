@@ -23,7 +23,6 @@ public class Bullet extends Block
 	public void draw(Graphics g)
 	{
 		g.setColor(color);
-		g.drawString(getTag(), x,y);
 		g.fillRect(x, y, width, height);
 	}
 	@Override

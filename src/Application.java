@@ -30,8 +30,11 @@ public class Application extends JFrame{
 
     public static boolean[] keys = {false, false, false};
     
-    public Application() 
+    public boolean debugMode;
+    
+    public Application(boolean dbm) 
     {
+        debugMode = dbm;
         addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -75,29 +78,9 @@ public class Application extends JFrame{
         frameCount = 0;
         stop = false;
 
-        sceneObjects.add(new Ship(100,SCREENHEIGHT - 150));
         alienCount = 0;
 
-        //Aliens
-        int alienCol = 10;
-        int alienRow = 2;
-        alienCount = alienCol * alienRow;
-        int ALIEN_SPACING_X = (SCREENWIDTH - (15 * alienCol)) / (alienCol + 1);
-
-        for (int col = 1; col <= alienCol; col++)
-        {
-            for (int row = 1; row <= alienRow; row++)
-            {
-                sceneObjects.add(new Alien((ALIEN_SPACING_X*col)+row*20, 150*row));
-            }
-        }
-
-        //Stars
-        for (int i = 0; i < 500; i++)
-        {
-            sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
-        }
-        
+        createScene();
         
         gameLooper = new SwingWorker() {
             @Override
@@ -144,13 +127,15 @@ public class Application extends JFrame{
         }
         g.setColor(Color.PINK);
         
-
+        if (alienCount == 0 || !sceneObjects.stream().anyMatch(c -> c instanceof Ship))
+        {
+            resetScene();
+        }
 
         paintComponent(dbg);
         
         g.drawImage(dbImage, 0, 0, this);
 
-        System.out.println("Objects: " + sceneObjects.size());
         long endFrame = System.nanoTime();
         System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
         
@@ -161,6 +146,12 @@ public class Application extends JFrame{
         for (int i = sceneObjects.size()-1; i >= 0; i--) //Draw from top of list to keep "z distance" constant.
         {
             sceneObjects.get(i).draw(g);
+            if(debugMode)
+            {
+                g.drawString(sceneObjects.get(i).getTag(), sceneObjects.get(i).getX(),sceneObjects.get(i).getY());
+                g.drawString(sceneObjects.get(i).getClass().getSimpleName(), sceneObjects.get(i).getX(), sceneObjects.get(i).getY()-10);
+                g.drawString("Objects: " + sceneObjects.size(),20,50);
+            }
         }
     }
 
@@ -173,5 +164,41 @@ public class Application extends JFrame{
     public void keyTyped(KeyEvent e)
     {
         System.out.print(e);
+    }
+
+    public void resetScene()
+    {
+        clearScene();
+        createScene();
+    }
+
+    public void clearScene()
+    {
+        sceneObjects.clear();
+    }
+
+    public void createScene()
+    {
+        sceneObjects.add(new Ship(100,SCREENHEIGHT - 150));
+
+        //Aliens
+        int alienCol = 10;
+        int alienRow = 2;
+        alienCount = alienCol * alienRow;
+        int ALIEN_SPACING_X = (SCREENWIDTH - (15 * alienCol)) / (alienCol + 1);
+
+        for (int col = 1; col <= alienCol; col++)
+        {
+            for (int row = 1; row <= alienRow; row++)
+            {
+                sceneObjects.add(new Alien((ALIEN_SPACING_X*col)+row*20, 150*row));
+            }
+        }
+
+        //Stars
+        for (int i = 0; i < 750; i++)
+        {
+            sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
+        }
     }
 }

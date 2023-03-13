@@ -57,12 +57,12 @@ public class Ship extends Block
 		g.setColor(Color.BLUE);
 		g.fillRect(x+5,y, 50,50);
 		g.setColor(Color.RED);
-		g.drawString(getTag(),x,y);
 		g.fillRect(x+35,y+50, 25,50);//Wings
 		g.fillRect(x,y+50, 25,50);
 		g.fillRect(x+25,y-50, 10,50);//Canon thing
 		g.fillRect(x+25,y+15, 20,20);//Cockpit
-		g.setColor(Color.GREEN);
-		g.drawRect(x,y,width,height);
+		//g.setColor(Color.GREEN);
+		//g.drawRect(x,y,width,height);
 	}
+
 }
