@@ -9,9 +9,10 @@ public class Particle extends Block
 
 	public Particle(int x, int y, int w, int h)
 	{
-		super(x,y,w,h, Color.YELLOW, "particle");
-		xVel = Application.rand.nextInt(-10,10);
-		yVel = Application.rand.nextInt(-10,10);
+		super(x, y, Application.rand.nextInt(5, 10), Application.rand.nextInt(5, 10), Color.YELLOW, "particle");
+		xVel = Application.rand.nextInt(-10, 10);
+		yVel = Application.rand.nextInt(-10, 10);
+
 
 		if (xVel == 0)
 			xVel ++;

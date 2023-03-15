@@ -35,10 +35,14 @@ public class Ship extends Block
 		{
 			xVel += 5;
 		}
-		if (Application.keys[2] && canShoot())
+		if (Application.keys[2])
 		{
 			coolDown =  System.currentTimeMillis();
-			sceneObjects.add(new Bullet(x+30, y, -10, Color.GREEN, "ship"));
+			sceneObjects.add(new Bullet(x+30, y, 0, -10, Color.GREEN, "ship"));
+			for (int i = -10; i < 10; i++)
+			{
+				sceneObjects.add(new Bullet(x+30, y, i, -10, Color.GREEN, "ship"));
+			}
 		}
 
 		xVel = (int)clamp(xVel, -10, 10);

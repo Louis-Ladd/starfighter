@@ -35,6 +35,7 @@ public class Application extends JFrame{
     public Application(boolean dbm) 
     {
         debugMode = dbm;
+
         addKeyListener(new KeyAdapter() {
           public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -127,9 +128,13 @@ public class Application extends JFrame{
         }
         g.setColor(Color.PINK);
         
-        if (alienCount == 0 || !sceneObjects.stream().anyMatch(c -> c instanceof Ship))
+        if (!sceneObjects.stream().anyMatch(c -> c instanceof Ship))
         {
             resetScene();
+        }
+        if(alienCount <= 0)
+        {
+            createAliens();
         }
 
         paintComponent(dbg);
@@ -179,11 +184,23 @@ public class Application extends JFrame{
 
     public void createScene()
     {
+
         sceneObjects.add(new Ship(100,SCREENHEIGHT - 150));
 
+        createAliens();
+
+        //Stars
+        for (int i = 0; i < 750; i++)
+        {
+            sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
+        }
+    }
+
+    public void createAliens()
+    {
         //Aliens
         int alienCol = 10;
-        int alienRow = 2;
+        int alienRow = 3;
         alienCount = alienCol * alienRow;
         int ALIEN_SPACING_X = (SCREENWIDTH - (15 * alienCol)) / (alienCol + 1);
 
@@ -191,14 +208,8 @@ public class Application extends JFrame{
         {
             for (int row = 1; row <= alienRow; row++)
             {
-                sceneObjects.add(new Alien((ALIEN_SPACING_X*col)+row*20, 150*row));
+                sceneObjects.add(new Alien((ALIEN_SPACING_X*col)+row*20, 100*row));
             }
-        }
-
-        //Stars
-        for (int i = 0; i < 750; i++)
-        {
-            sceneObjects.add(new Star(rand.nextInt(SCREENWIDTH), rand.nextInt(SCREENHEIGHT), 2, 2, Color.WHITE));
         }
     }
 }

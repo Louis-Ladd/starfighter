@@ -10,7 +10,7 @@ public class Alien extends Block
 	public Alien(int x, int y)
 	{
 		super(x,y,30,30,Color.BLUE,"alien");
-		shootDelay = Application.rand.nextInt(500,3000);
+		shootDelay = Application.rand.nextInt(1000,3000);
 		coolDown = System.currentTimeMillis();
 	}
 
@@ -24,8 +24,8 @@ public class Alien extends Block
 	{
 		if (canShoot())
 		{
-			sceneObjects.add(new Bullet(x+15, y, Application.rand.nextInt(5,15), Color.RED, "alien"));
-			shootDelay = Application.rand.nextInt(500,3000);
+			sceneObjects.add(new Bullet(x+15, y, Application.rand.nextInt(5,10), Color.RED, "alien"));
+			shootDelay = Application.rand.nextInt(1000,3000);
 			coolDown = System.currentTimeMillis();
 		}
 		

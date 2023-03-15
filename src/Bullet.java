@@ -6,16 +6,24 @@ import java.lang.Math;
 
 public class Bullet extends Block
 {
-	private int yVel;
+	private int xVel,yVel;
 
 	public Bullet(int x, int y, int yVelocity, Color c)
 	{
-		super(x,y,5,10,c);
+		super(x,y,10,20,c);
+		xVel = 0;
 		yVel = yVelocity;
 	}
 	public Bullet(int x, int y, int yVelocity, Color c, String t)
 	{
-		super(x,y,5,10,c,t);
+		super(x,y,10,20,c,t);
+		xVel = 0;
+		yVel = yVelocity;
+	}
+	public Bullet(int x, int y, int xVelocity, int yVelocity, Color c, String t)
+	{
+		super(x,y,10,20,c,t);
+		xVel = xVelocity;
 		yVel = yVelocity;
 	}
 
@@ -38,8 +46,7 @@ public class Bullet extends Block
 		{
 			Block obj = sceneObjects.get(i);
 			if (obj.getTag().equals("star") ||
-				obj.getTag().equals("particle") ||
-				obj instanceof Bullet)
+				obj.getTag().equals("particle"))
 				continue;
 
 			if (this.isOverlapping(obj) && 
@@ -51,7 +58,7 @@ public class Bullet extends Block
 			}
 		}
 
+		x += xVel;
 		y += yVel;
-
 	}
 }
