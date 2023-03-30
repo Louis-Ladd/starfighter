@@ -1,3 +1,4 @@
+//Louis Harshman - Starfighter
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -9,7 +10,11 @@ public class Particle extends Block
 
 	public Particle(int x, int y, int w, int h)
 	{
-		super(x, y, Application.rand.nextInt(5, 10), Application.rand.nextInt(5, 10), Color.YELLOW, "particle");
+		super(x, y, 
+			  Application.rand.nextInt(5, 10), 
+			  Application.rand.nextInt(5, 10), 
+			  Color.YELLOW, "particle");
+
 		xVel = Application.rand.nextInt(-10, 10);
 		yVel = Application.rand.nextInt(-10, 10);
 
@@ -24,8 +29,10 @@ public class Particle extends Block
 	public Particle(int x, int y, int w, int h, int xV, int yV)
 	{
 		super(x,y,w,h, Color.YELLOW, "particle");
+
 		xVel = xV;
 		yVel = yV;
+
 		//System.out.println("" + xVel + "  " + yVel);
 	}
 

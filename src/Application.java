@@ -1,3 +1,4 @@
+//Louis Harshman - Starfighter
 import java.util.Random;
 import java.util.ArrayList;
 import java.awt.Color;
@@ -75,6 +76,7 @@ public class Application extends JFrame{
         setResizable(false);
         setTitle("StarFighter");
         setBackground(Color.BLACK);
+
         rand = new Random();
         frameCount = 0;
         stop = false;
@@ -132,6 +134,7 @@ public class Application extends JFrame{
         {
             resetScene();
         }
+
         if(alienCount <= 0)
         {
             createAliens();
@@ -142,7 +145,7 @@ public class Application extends JFrame{
         g.drawImage(dbImage, 0, 0, this);
 
         long endFrame = System.nanoTime();
-        System.out.println(""+((endFrame - startFrame)/1000000) +" MS");
+        System.out.println("" + ((endFrame - startFrame)/1000000) + " MS");
         
     }
 
@@ -201,7 +204,9 @@ public class Application extends JFrame{
         //Aliens
         int alienCol = 10;
         int alienRow = 3;
+
         alienCount = alienCol * alienRow;
+
         int ALIEN_SPACING_X = (SCREENWIDTH - (15 * alienCol)) / (alienCol + 1);
 
         for (int col = 1; col <= alienCol; col++)

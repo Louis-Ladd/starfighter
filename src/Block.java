@@ -1,3 +1,4 @@
+//Louis Harshman - Starfighter
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,7 +20,6 @@ public class Block
 		height = h;
 		tag = "";
 		isGone = false;
-		
 	}
 
 	public Block(int xPos, int yPos, int w, int h, Color c, String t)
@@ -34,33 +34,22 @@ public class Block
 	}
 
 	public boolean getIsGone()
-	{
-		return false;
-	}
+	{return false;}
 	public int getX()
-	{
-		return x;
-	}
+	{return x;}
 	public int getY()
-	{
-		return y;
-	}
+	{return y;}
 	public int getWidth()
-	{
-		return width;
-	}
+	{return width;}
 	public int getHeight()
-	{
-		return height;
-	}
+	{return height;}
 	public String getTag()
-	{
-		return tag;
-	}
+	{return tag;}
 
 	public void invertXVel()
 	{
 	}
+
 	public void invertYVel()
 	{
 	}
@@ -110,6 +99,7 @@ public class Block
 		{
 			sceneObjects.add(new Particle(x,y,10,10));
 		}
+
 		isGone = true;
 	}
 }

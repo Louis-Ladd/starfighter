@@ -1,3 +1,4 @@
+//Louis Harshman - Starfighter
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,8 +15,6 @@ public class Ship extends Block
 	{
 		super(x,y,60,125,Color.BLACK,"ship");
 		coolDown = 0;
-
-		System.out.print( System.currentTimeMillis());
 	}
 
 	private boolean canShoot()
@@ -35,14 +34,12 @@ public class Ship extends Block
 		{
 			xVel += 5;
 		}
-		if (Application.keys[2])
+		if (Application.keys[2] && canShoot())
 		{
 			coolDown =  System.currentTimeMillis();
+			
 			sceneObjects.add(new Bullet(x+30, y, 0, -10, Color.GREEN, "ship"));
-			for (int i = -10; i < 10; i++)
-			{
-				sceneObjects.add(new Bullet(x+30, y, i, -10, Color.GREEN, "ship"));
-			}
+			sceneObjects.add(new Bullet(x+30, y, i, -10, Color.GREEN, "ship"));
 		}
 
 		xVel = (int)clamp(xVel, -10, 10);

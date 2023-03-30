@@ -1,3 +1,4 @@
+//Louis Harshman - Starfighter
 import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -33,6 +34,7 @@ public class Bullet extends Block
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
 	}
+
 	@Override
 	public void logic(ArrayList<Block> sceneObjects)
 	{
